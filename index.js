@@ -1,4 +1,4 @@
-function hai(deferred) {
+function hai(deferred, name) {
   confirm("hai want 2 play? my name is " + name) ? deferred.resolve() : deferred.reject();
 }
 
@@ -16,12 +16,12 @@ function kthxby(deferred) {
   deferred.resolve();
 }
 
-function doittoit(deferred, it) {
+function doittoit(deferred, _, it) {
   alert("DID IT: " + it);
   deferred.resolve();
 }
 
-function ohnoes(deferred, what_happened) {
+function ohnoes(deferred, _, what_happened) {
   window.setTimeout(function() {
     alert(what_happened || "OHNOES!");
     deferred.resolve();
@@ -41,5 +41,5 @@ var lol_plan = new PlanJS({
 
 var the_button = document.getElementById("the_button");
 the_button.onclick = function() {
-  lol_plan.execute();
+  lol_plan.execute("ben");
 };
