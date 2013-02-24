@@ -26,7 +26,6 @@ PlanJS.prototype = {
                         .fail(this.take_future_step(step.reject))
                         .always(this.take_future_step(step.always));
 
-    args = args || []
     args.unshift(deferred);
 
     var result = step.action.apply({}, args);
