@@ -1,25 +1,24 @@
-function hai() {
-  return confirm("hai want 2 play?");
+function hai(deferred) {
+  confirm("hai want 2 play?") ? deferred.resolve() : deferred.reject();
 }
 
 function gimmeh(deferred) {
   window.setTimeout(function() {
     var result = prompt("gimmeh?");
-    if(result)
-      deferred.resolve(result);
-    else
+    result ?
+      deferred.resolve(result) :
       deferred.reject("NO GIMMEH! :-(");
   }, 1000);
 }
 
-function kthxby() {
+function kthxby(deferred) {
   alert("KTHXBY");
-  return true;
+  deferred.resolve();
 }
 
-function doittoit(_, it) {
+function doittoit(deferred, it) {
   alert("DID IT: " + it);
-  return true;
+  deferred.resolve();
 }
 
 function ohnoes(deferred, what_happened) {

@@ -10,8 +10,7 @@
  */
 
 var PlanJS = function(details) {
-  // verify data is ok?
-  this.steps = details.steps; // clone?
+  this.steps = details.steps;
   this.first = details.first;
 };
 
@@ -20,22 +19,23 @@ PlanJS.prototype = {
     this.take_step(this.first, []);
   },
   take_step: function(step_name, args) {
-    var step = this.steps[step_name]; // safely degrade if no step found or better error?
-    var deferred = new $.Deferred()
-                        .done(this.take_future_step(step.resolve))
-                        .fail(this.take_future_step(step.reject))
-                        .always(this.take_future_step(step.always));
+    var step = this.steps[step_name];
 
-    args.unshift(deferred);
+    if(step) {
+      var deferred = new $.Deferred()
+                          .done(this.take_future_step(step.resolve))
+                          .fail(this.take_future_step(step.reject))
+                          .always(this.take_future_step(step.always));
 
-    var result = step.action.apply({}, args);
+      args.unshift(deferred);
 
-    if(result != undefined) { // safer way?
-      result ? deferred.resolve() : deferred.reject();
+      step.action.apply({}, args);
     }
   },
   take_future_step: function(step_name) {
-    var that = this;// pass data instead? // can we pass undefined?
-    return !!step_name ? function() { that.take_step(step_name, Array.prototype.slice.call(arguments)); } : $.noop;
+    var that = this;
+    return function() {
+      that.take_step(step_name, Array.prototype.slice.call(arguments));
+    };
   }
 };
