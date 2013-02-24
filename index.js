@@ -4,20 +4,27 @@ function hai() {
 
 function gimmeh(deferred) {
   window.setTimeout(function() {
-    if(confirm("gimmeh?"))
-      deferred.resolve();
+    var result = prompt("gimmeh?");
+    if(result)
+      deferred.resolve(result);
     else
-      deferred.reject();
+      deferred.reject("NO GIMMEH! :-(");
   }, 1000);
 }
 
 function kthxby() {
-  return alert("KTHXBY");
+  alert("KTHXBY");
+  return true;
 }
 
-function ohnoes(deferred) {
+function doittoit(_, it) {
+  alert("DID IT: " + it);
+  return true;
+}
+
+function ohnoes(deferred, what_happened) {
   window.setTimeout(function() {
-    alert("OHNOES!");
+    alert(what_happened || "OHNOES!");
     deferred.resolve();
   }, 1000);
 }
@@ -26,8 +33,9 @@ var lol_plan = new PlanJS({
   first: "HAI",
   steps: {
     "HAI": { action: hai, resolve: "GIMMEH", reject: "KTHXBY" },
-    "GIMMEH": { action: gimmeh, resolve: "KTHXBY", reject: "OHNOES" },
+    "GIMMEH": { action: gimmeh, resolve: "DOITTOIT", reject: "OHNOES" },
     "KTHXBY": { action: kthxby },
+    "DOITTOIT" : { action: doittoit, always: "KTHXBY" },
     "OHNOES": { action: ohnoes, always: "KTHXBY" }
   }
 });
