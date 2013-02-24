@@ -9,33 +9,37 @@
  * [X] Should minimally polute global namespace
  */
 
-var PlanJS = function(details) {
-  this.steps = details.steps;
-  this.first = details.first;
-};
+var PlanJS = (function() {
+  function PlanConstructor(details) {
+    this.steps = details.steps;
+    this.first = details.first;
+  };
 
-PlanJS.prototype = {
-  execute: function() {
-    this.take_step(this.first, []);
-  },
-  take_step: function(step_name, args) {
-    var step = this.steps[step_name];
+  PlanConstructor.prototype = {
+    execute: function() {
+      this.take_step(this.first, []);
+    },
+    take_step: function(step_name, args) {
+      var step = this.steps[step_name];
 
-    if(step) {
-      var deferred = new $.Deferred()
-                          .done(this.take_future_step(step.resolve))
-                          .fail(this.take_future_step(step.reject))
-                          .always(this.take_future_step(step.always));
+      if(step) {
+        var deferred = new $.Deferred()
+                            .done(this.take_future_step(step.resolve))
+                            .fail(this.take_future_step(step.reject))
+                            .always(this.take_future_step(step.always));
 
-      args.unshift(deferred);
+        args.unshift(deferred);
 
-      step.action.apply({}, args);
+        step.action.apply({}, args);
+      }
+    },
+    take_future_step: function(step_name) {
+      var that = this;
+      return function() {
+        that.take_step(step_name, Array.prototype.slice.call(arguments));
+      };
     }
-  },
-  take_future_step: function(step_name) {
-    var that = this;
-    return function() {
-      that.take_step(step_name, Array.prototype.slice.call(arguments));
-    };
-  }
-};
+  };
+
+  return PlanConstructor;
+})();

@@ -1,5 +1,5 @@
 function hai(deferred) {
-  confirm("hai want 2 play?") ? deferred.resolve() : deferred.reject();
+  confirm("hai want 2 play? my name is " + name) ? deferred.resolve() : deferred.reject();
 }
 
 function gimmeh(deferred) {
@@ -43,7 +43,3 @@ var the_button = document.getElementById("the_button");
 the_button.onclick = function() {
   lol_plan.execute();
 };
-
-var obj = {a:1,b:2};
-console.log($.map(obj, function(v, k) { return "" + k + v; }));
-console.log(obj);
