@@ -32,7 +32,7 @@ function ohnoes(deferred, _, what_happened) {
   }, 1000);
 }
 
-var lol_plan = new PlanJS({
+var lol_plan = new PlanJs({
   first: "HAI",
   steps: {
     "HAI": { action: hai, resolve: "GIMMEH", reject: "KTHXBY" },
