@@ -4,6 +4,8 @@ Simple plan (workflow) creation utility.
 
 Aim is to simplify simple workflows such as modals with forms and error handling.
 
+Live example: http://benjaminplee.github.com/PlanJS/
+
 [X] Should handle sync and async steps
 [X] Should have minimal plan setup ceremony
 [X] Should handle steps w/ 1 or 2 possible outcomes
