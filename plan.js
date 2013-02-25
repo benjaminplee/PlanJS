@@ -1,3 +1,7 @@
+// Plan.JS
+// Author: Benjamin P Lee
+// License: Creative Commons Attribution 3.0 Unported License (see source README)
+
 var PlanJS = (function() {
   function PlanConstructor(details) {
     this.steps = details.steps;

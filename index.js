@@ -1,3 +1,7 @@
+// Plan.JS
+// Author: Benjamin P Lee
+// License: Creative Commons Attribution 3.0 Unported License (see source README)
+
 function hai(deferred, name) {
   confirm("hai want 2 play? my name is " + name) ? deferred.resolve() : deferred.reject();
 }
